@@ -1,0 +1,48 @@
+<h2><%=h @post.title %></h2>
+
+
+<p>
+  <b>Author:</b>
+  <%=h @post.name %>
+</p>
+
+<p class = "over">
+  <%= @post.body %>
+</p>
+
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>
+
+<% if @replies.any? %>
+	<hr />
+		<h3>Replies</h3>
+		<% for reply in @replies do %>
+			<div class = "reply">
+				<hr />
+				<p><b>Author:</b><%=h reply.name %> - <em>Posted on - <%= reply.created_at %></em></p>
+				<p class = "over"><%= reply.body %>
+			</div>
+		<% end %>
+<% end %>
+
+<hr />
+<h3>New Reply</h3>
+
+<% form_for(:reply, @reply, :url => {:action => 'reply'}) do |f| %>
+  <%= f.error_messages %>
+  
+	<%= f.hidden_field 'post_id', :value => @post.id %>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :body %><br />
+    <%= f.text_area :body, :rows => 10 %>
+  </p>
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>
+

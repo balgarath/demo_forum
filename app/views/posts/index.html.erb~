@@ -1,0 +1,12 @@
+<h1>Listing posts</h1>
+
+<% for post in @posts %>
+	<div class = "post">
+    <h4><%= link_to post.title, post %></h4>
+    <em>Posted by: <%=h post.name %> on <%= post.created_at %></em>
+  </div>
+<% end %>
+
+<br />
+
+<%= link_to 'New post', new_post_path %>
